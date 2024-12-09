@@ -1,5 +1,3 @@
-from django.conf import settings
-from django.conf.urls.static import static
 from django.urls import path
 
 from . import views
@@ -7,11 +5,11 @@ from . import views
 app_name = "resume"
 
 urlpatterns = [
-    path("",view=views.home, name="home"),
-]
+	path('', views.IndexView.as_view(), name="home"),
+	path('contact/', views.ContactView.as_view(), name="contact"),
+	path('portfolio/', views.PortfolioView.as_view(), name="portfolios"),
+	path('portfolio/<slug:slug>', views.PortfolioDetailView.as_view(), name="portfolio"),
+	path('blog/', views.BlogView.as_view(), name="blogs"),
+	path('blog/<slug:slug>', views.BlogDetailView.as_view(), name="blog"),
+	]
 
-if settings.DEBUG:
-    urlpatterns += static(settings.STATIC_URL,
-                          document_root=settings.STATIC_ROOT)
-    urlpatterns += static(settings.MEDIA_URL,
-                          document_root=settings.MEDIA_ROOT)
